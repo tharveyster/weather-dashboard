@@ -1,0 +1,60 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    width: 100%;
+    text-align: center;
+    background-color: darkblue;
+    color: white;
+    padding: 10px 0;
+}
+
+header h1 {
+    font-weight: bold;
+}
+
+main {
+    padding: 10px;
+}
+
+aside {
+    width: 30%;
+    float: left;
+}
+
+h3 {
+    font-weight: bold;
+}
+
+button {
+    margin-top: 10px;
+}
+
+hr {
+    margin-bottom: 5px;
+    background-color: gray;
+}
+
+section {
+    float: left;
+    padding-left: 10px;
+    width: 70%;
+}
+
+.cityInfo {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.fiveDay {
+    margin-top: 10px;
+    border: 1px dotted red;
+}
+
+.fiveDayTitle {
+    font-weight: bold;
+}
