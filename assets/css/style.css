@@ -50,6 +50,35 @@ section {
     padding: 5px;
 }
 
+.uvIndex {
+    padding: 5px 10px;
+    font-size: 75%;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.green {
+    background-color: green;
+    color: white;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.orange {
+    background-color: orange;
+}
+
+.red {
+    background-color: red;
+    color: white;
+}
+
+.violet {
+    background-color: violet;
+}
+
 .fiveDay {
     margin-top: 10px;
     border: 1px dotted red;
