@@ -3,6 +3,9 @@ var city;
 var cityNameSearch = document.querySelector("#cityName");
 var searchButton = document.querySelector("#citySearch");
 var currentDate = moment().format('M/D/YYYY');
+var weatherBlock = document.querySelector("#weatherBlock");
+var fiveDayBlock = document.querySelector("#fiveDayBlock");
+var day = [];
 console.log(currentDate);
 
 function getWeather() {
@@ -55,12 +58,43 @@ function getWeather() {
                     uvIndex.textContent = 'UV Index: ';
                     uvIndex.append(uvNumber);
                     weatherBlock.append(uvIndex);
+                    for (var i = 1; i < 6; i++) {
+                        var weatherCard = document.createElement('div');
+                        var weatherCardContent = document.createElement('div');
+                        var date5 = document.createElement('h5');
+                        var icon5 = document.createElement('p');
+                        var temp5 = document.createElement('p');
+                        var wind5 = document.createElement('p');
+                        var humidity5 = document.createElement('p');
+                        var fiveDayIcon = (data.daily[i].weather[0].icon);
+                        var fiveDayIcons = '<img src="http://openweathermap.org/img/wn/' + fiveDayIcon + '.png" alt="" />';
+                        var unix_timestamp = (data.daily[i].dt)
+                        date5.innerHTML = moment.unix(unix_timestamp).format('M/D/YYYY');
+                        icon5.innerHTML = fiveDayIcons;
+                        temp5.innerHTML = 'Temp: ' + (data.daily[i].temp.max) + '&#176F';
+                        wind5.innerHTML = 'Wind: ' + (data.daily[i].wind_speed) + ' MPH';
+                        humidity5.innerHTML = 'Humidity: ' + (data.daily[i].humidity) + '%';
+                        var fiveDayIcons = '<img src="http://openweathermap.org/img/wn/' + icon5 + '.png" alt="" />';
+                        fiveDayBlock.append(weatherCard);
+                        $(weatherCard).addClass('weatherCard');
+                        weatherCard.append(weatherCardContent);
+                        $(weatherCardContent).addClass('weatherCardContent');
+                        weatherCardContent.append(date5);
+                        weatherCardContent.append(icon5);
+                        weatherCardContent.append(temp5);
+                        weatherCardContent.append(wind5);
+                        weatherCardContent.append(humidity5);
+                    }
                 })
         })
 
 }
 
 searchButton.addEventListener('click', function() {
+    weatherBlock.innerHTML = '';
+    fiveDayBlock.innerHTML = '';
+    weatherBlock.style.display = 'block';
+    fiveDayBlock.style.display = 'block';
     city = cityNameSearch.value;
     getWeather();
     cityNameSearch.value = "";

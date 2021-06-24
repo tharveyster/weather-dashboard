@@ -22,7 +22,7 @@ main {
 }
 
 aside {
-    width: 30%;
+    width: 25%;
     float: left;
 }
 
@@ -42,12 +42,13 @@ hr {
 section {
     float: left;
     padding-left: 10px;
-    width: 70%;
+    width: 75%;
 }
 
 .cityInfo {
     border: 1px solid black;
     padding: 5px;
+    display: none;
 }
 
 .uvIndex {
@@ -81,9 +82,30 @@ section {
 
 .fiveDay {
     margin-top: 10px;
-    border: 1px dotted red;
+    display: none;
 }
 
 .fiveDayTitle {
+    font-weight: bold;
+}
+
+.weatherCard {
+    float: left;
+    width: 20%;
+    padding-right:15px;
+}
+
+.weatherCard:last-child {
+    padding-right:0;
+}
+
+.weatherCardContent {
+    background-color: #333;
+    color: white;
+    padding: 5px;
+}
+
+.weatherCardContent h5 {
+    font-size: 16px;
     font-weight: bold;
 }
