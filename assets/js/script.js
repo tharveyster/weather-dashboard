@@ -6,7 +6,6 @@ var currentDate = moment().format('M/D/YYYY');
 var weatherBlock = document.querySelector("#weatherBlock");
 var fiveDayBlock = document.querySelector("#fiveDayBlock");
 var day = [];
-console.log(currentDate);
 
 function getWeather() {
     var requestUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=' + APIKey;
@@ -24,7 +23,6 @@ function getWeather() {
             var uvNumber = document.createElement('span');
             var todayIcon = (data.weather[0].icon);
             var todayIconImage = '<img src="http://openweathermap.org/img/wn/' + todayIcon + '.png" alt="" />';
-            console.log(todayIconImage);
             cityName.innerHTML = data.name + ' (' + currentDate + ')' + todayIconImage;
             temp.innerHTML = 'Temp: ' + (data.main.temp) + '&#176F';
             wind.innerHTML = 'Wind: ' + (data.wind.speed) + ' MPH';
@@ -91,6 +89,10 @@ function getWeather() {
 }
 
 searchButton.addEventListener('click', function() {
+    if (cityNameSearch.value === '') {
+        alert("You must enter a city!");
+        return;
+    }
     weatherBlock.innerHTML = '';
     fiveDayBlock.innerHTML = '';
     weatherBlock.style.display = 'block';

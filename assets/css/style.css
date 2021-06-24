@@ -3,6 +3,8 @@ body {
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: #d3d3d3;
+    font-size: 16px;
 }
 
 header {
@@ -47,6 +49,7 @@ section {
 
 .cityInfo {
     border: 1px solid black;
+    min-height: 220px;
     padding: 5px;
     display: none;
 }
@@ -100,7 +103,7 @@ section {
 }
 
 .weatherCardContent {
-    background-color: #333;
+    background-color: #112;
     color: white;
     padding: 5px;
 }
