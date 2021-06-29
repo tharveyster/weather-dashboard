@@ -9,7 +9,7 @@ var day = [];
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 var searchedCities = document.querySelector("#searchedCities");
 
-function getWeather() {
+function getWeather(city) {
     var requestUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=' + APIKey;
     fetch(requestUrl)
         .then(function (response) {
@@ -97,7 +97,7 @@ searchButton.addEventListener('click', function() {
     weatherBlock.style.display = 'block';
     fiveDayBlock.style.display = 'block';
     city = cityNameSearch.value;
-    getWeather();
+    getWeather(city);
     cityNameSearch.value = '';
     searchHistory.push(city);
     localStorage.setItem("search",JSON.stringify(searchHistory));
@@ -107,9 +107,8 @@ searchButton.addEventListener('click', function() {
 function showHistory() {
     for (var i = 0; i < searchHistory.length; i++) {
         historyBtn = document.createElement('button');
-        $(historyBtn).addClass('btn btn-secondary form-control');
+        $(historyBtn).addClass('btn btn-secondary form-control history');
         searchHistory = JSON.parse(localStorage.getItem("search"));
-        console.log(searchHistory[i]);
         historyBtn.append(searchHistory[i]);
         searchedCities.append(historyBtn);
     }
@@ -117,9 +116,18 @@ function showHistory() {
 
 function addHistory(city) {
     historyBtn = document.createElement('button');
-    $(historyBtn).addClass('btn btn-secondary form-control');
+    $(historyBtn).addClass('btn btn-secondary form-control history');
     historyBtn.append(city);
     searchedCities.append(historyBtn);
 }
 
 showHistory();
+
+searchedCities.addEventListener('click', function(e){
+    if(e.target.tagName=="BUTTON"){
+        var clickedCity = e.target.textContent;
+        weatherBlock.innerHTML = "";
+        fiveDayBlock.innerHTML = "";
+        getWeather(clickedCity);
+    }
+})
