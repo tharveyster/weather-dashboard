@@ -1,5 +1,6 @@
 var APIKey = "77d9b213504a58408f3d89d57b484a0d";
 var city;
+var searchedCity;
 var cityNameSearch = document.querySelector("#cityName");
 var searchButton = document.querySelector("#citySearch");
 var currentDate = moment().format('M/D/YYYY');
@@ -9,11 +10,33 @@ var day = [];
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 var searchedCities = document.querySelector("#searchedCities");
 
+function showHistory() {
+    for (var i = 0; i < searchHistory.length; i++) {
+        historyBtn = document.createElement('button');
+        $(historyBtn).addClass('btn btn-secondary form-control history');
+        searchHistory = JSON.parse(localStorage.getItem("search"));
+        historyBtn.append(searchHistory[i]);
+        searchedCities.append(historyBtn);
+    }
+}
+
+function addHistory(city) {
+    historyBtn = document.createElement('button');
+    $(historyBtn).addClass('btn btn-secondary form-control history');
+    historyBtn.append(city);
+    searchedCities.append(historyBtn);
+}
+
 function getWeather(city) {
-    var requestUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=' + APIKey;
+    var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=' + APIKey;
+    console.log(requestUrl);
     fetch(requestUrl)
         .then(function (response) {
+            if (!response.ok) {
+                alert('Error: ' + response.statusText);
+            } else {
             return response.json();
+            }
         })
         .then(function (data) {
             var cityName = document.createElement('h3');
@@ -23,7 +46,7 @@ function getWeather(city) {
             var uvIndex = document.createElement('p');
             var uvNumber = document.createElement('span');
             var todayIcon = (data.weather[0].icon);
-            var todayIconImage = '<img src="http://openweathermap.org/img/w/' + todayIcon + '.png" alt="" />';
+            var todayIconImage = '<img src="https://openweathermap.org/img/w/' + todayIcon + '.png" alt="" />';
             cityName.innerHTML = data.name + ' (' + currentDate + ')' + todayIconImage;
             temp.innerHTML = 'Temp: ' + (data.main.temp) + '&#176F';
             wind.innerHTML = 'Wind: ' + (data.wind.speed) + ' MPH';
@@ -65,7 +88,7 @@ function getWeather(city) {
                         var wind5 = document.createElement('p');
                         var humidity5 = document.createElement('p');
                         var fiveDayIcon = (data.daily[i].weather[0].icon);
-                        var fiveDayIcons = '<img src="http://openweathermap.org/img/w/' + fiveDayIcon + '.png" alt="" />';
+                        var fiveDayIcons = '<img src="https://openweathermap.org/img/w/' + fiveDayIcon + '.png" alt="" />';
                         var unix_timestamp = (data.daily[i].dt)
                         date5.innerHTML = moment.unix(unix_timestamp).format('M/D/YYYY');
                         icon5.innerHTML = fiveDayIcons;
@@ -104,30 +127,13 @@ searchButton.addEventListener('click', function() {
     addHistory(city);
 });
 
-function showHistory() {
-    for (var i = 0; i < searchHistory.length; i++) {
-        historyBtn = document.createElement('button');
-        $(historyBtn).addClass('btn btn-secondary form-control history');
-        searchHistory = JSON.parse(localStorage.getItem("search"));
-        historyBtn.append(searchHistory[i]);
-        searchedCities.append(historyBtn);
-    }
-}
-
-function addHistory(city) {
-    historyBtn = document.createElement('button');
-    $(historyBtn).addClass('btn btn-secondary form-control history');
-    historyBtn.append(city);
-    searchedCities.append(historyBtn);
-}
-
-showHistory();
-
 searchedCities.addEventListener('click', function(e){
     if(e.target.tagName=="BUTTON"){
-        var clickedCity = e.target.textContent;
+        city = e.target.textContent;
         weatherBlock.innerHTML = "";
         fiveDayBlock.innerHTML = "";
-        getWeather(clickedCity);
+        getWeather(city);
     }
 })
+
+showHistory();
