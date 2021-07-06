@@ -10,6 +10,7 @@ var day = [];
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 var searchedCities = document.querySelector("#searchedCities");
 
+// Displays the search history
 function showHistory() {
     for (var i = 0; i < searchHistory.length; i++) {
         historyBtn = document.createElement('button');
@@ -20,6 +21,7 @@ function showHistory() {
     }
 }
 
+// Adds latest search to search history
 function addHistory(city) {
     historyBtn = document.createElement('button');
     $(historyBtn).addClass('btn btn-secondary form-control history');
@@ -27,15 +29,15 @@ function addHistory(city) {
     searchedCities.append(historyBtn);
 }
 
+// Fetches weather and uvi data from openweathermap API
 function getWeather(city) {
     var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=' + APIKey;
-    console.log(requestUrl);
     fetch(requestUrl)
         .then(function (response) {
             if (!response.ok) {
                 alert('Error: ' + response.statusText);
             } else {
-            return response.json();
+                return response.json();
             }
         })
         .then(function (data) {
@@ -110,6 +112,7 @@ function getWeather(city) {
 
 }
 
+// Event listener for city search
 searchButton.addEventListener('click', function() {
     if (cityNameSearch.value === '') {
         alert("You must enter a city!");
@@ -127,6 +130,7 @@ searchButton.addEventListener('click', function() {
     addHistory(city);
 });
 
+// Event listener for search history
 searchedCities.addEventListener('click', function(e){
     if(e.target.tagName=="BUTTON"){
         city = e.target.textContent;

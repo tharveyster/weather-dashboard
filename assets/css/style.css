@@ -23,6 +23,7 @@ main {
     padding: 10px;
 }
 
+/* Search and history area */
 aside {
     width: 25%;
     float: left;
@@ -41,6 +42,7 @@ hr {
     background-color: gray;
 }
 
+/* Current weather area */
 section {
     float: left;
     padding-left: 10px;
@@ -54,6 +56,7 @@ section {
     display: none;
 }
 
+/* UV index background */
 .uvIndex {
     padding: 5px 10px;
     font-size: 75%;
@@ -83,6 +86,7 @@ section {
     background-color: violet;
 }
 
+/* 5-day weather cards */
 .fiveDay {
     margin-top: 10px;
     display: none;
