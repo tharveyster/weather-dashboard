@@ -132,6 +132,8 @@ searchedCities.addEventListener('click', function(e){
         city = e.target.textContent;
         weatherBlock.innerHTML = "";
         fiveDayBlock.innerHTML = "";
+        weatherBlock.style.display = 'block';
+        fiveDayBlock.style.display = 'block';
         getWeather(city);
     }
 })
