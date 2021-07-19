@@ -10,7 +10,7 @@ Clicking on cities in the search history will return you to the weather for that
 ## Page Link
 The project can be viewed at <https://tharveyster.github.io/weather-dashboard/>.
 
-## Screenshot
+## Screenshots
 ![A user enters a city name to get current and 5-day outlook weather.](./assets/images/weather-dashboard.png)
 ![A user enters a city name to get current and 5-day outlook weather.](./assets/images/weather-dashboard2.png)
 
