@@ -12,6 +12,7 @@ The project can be viewed at <https://tharveyster.github.io/weather-dashboard/>.
 
 ## Screenshot
 ![A user enters a city name to get current and 5-day outlook weather.](./assets/images/weather-dashboard.png)
+![A user enters a city name to get current and 5-day outlook weather.](./assets/images/weather-dashboard2.png)
 
 ## License
 Copyright 2021 Todd Harvey
