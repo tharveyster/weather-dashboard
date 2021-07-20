@@ -7,7 +7,7 @@ var currentDate = moment().format('M/D/YYYY');
 var weatherBlock = document.querySelector("#weatherBlock");
 var fiveDayBlock = document.querySelector("#fiveDayBlock");
 var day = [];
-var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
+var searchHistory = JSON.parse(localStorage.getItem("cityWeatherSearch")) || [];
 var searchedCities = document.querySelector("#searchedCities");
 
 // Displays the search history
@@ -15,7 +15,7 @@ function showHistory() {
     for (var i = 0; i < searchHistory.length; i++) {
         historyBtn = document.createElement('button');
         $(historyBtn).addClass('btn btn-secondary form-control history');
-        searchHistory = JSON.parse(localStorage.getItem("search"));
+        searchHistory = JSON.parse(localStorage.getItem("cityWeatherSearch"));
         historyBtn.append(searchHistory[i]);
         searchedCities.append(historyBtn);
     }
@@ -127,7 +127,7 @@ searchButton.addEventListener('click', function() {
     cityNameSearch.value = '';
     if (!searchHistory.includes(city)) {
         searchHistory.push(city);
-        localStorage.setItem("search",JSON.stringify(searchHistory));
+        localStorage.setItem("cityWeatherSearch",JSON.stringify(searchHistory));
         addHistory(city);
     }
 });
