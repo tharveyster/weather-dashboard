@@ -36,6 +36,7 @@ function getWeather(city) {
         .then(function (response) {
             if (!response.ok) {
                 alert('Error: ' + response.statusText);
+                location.reload();
             } else {
                 return response.json();
             }
@@ -108,6 +109,11 @@ function getWeather(city) {
                         weatherCardContent.append(humidity5);
                     }
                 })
+                if (!searchHistory.includes(city)) {
+                    searchHistory.push(city);
+                    localStorage.setItem("cityWeatherSearch",JSON.stringify(searchHistory));
+                    addHistory(city);
+                }
         })
 
 }
@@ -125,11 +131,6 @@ searchButton.addEventListener('click', function() {
     city = cityNameSearch.value;
     getWeather(city);
     cityNameSearch.value = '';
-    if (!searchHistory.includes(city)) {
-        searchHistory.push(city);
-        localStorage.setItem("cityWeatherSearch",JSON.stringify(searchHistory));
-        addHistory(city);
-    }
 });
 
 // Event listener for search history
