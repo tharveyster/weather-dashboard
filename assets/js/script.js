@@ -125,9 +125,11 @@ searchButton.addEventListener('click', function() {
     city = cityNameSearch.value;
     getWeather(city);
     cityNameSearch.value = '';
-    searchHistory.push(city);
-    localStorage.setItem("search",JSON.stringify(searchHistory));
-    addHistory(city);
+    if (!searchHistory.includes(city)) {
+        searchHistory.push(city);
+        localStorage.setItem("search",JSON.stringify(searchHistory));
+        addHistory(city);
+    }
 });
 
 // Event listener for search history
