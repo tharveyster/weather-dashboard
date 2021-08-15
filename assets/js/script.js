@@ -1,18 +1,15 @@
-var APIKey = "77d9b213504a58408f3d89d57b484a0d";
-var city;
-var searchedCity;
-var cityNameSearch = document.querySelector("#cityName");
-var searchButton = document.querySelector("#citySearch");
-var currentDate = moment().format('M/D/YYYY');
-var weatherBlock = document.querySelector("#weatherBlock");
-var fiveDayBlock = document.querySelector("#fiveDayBlock");
-var day = [];
-var searchHistory = JSON.parse(localStorage.getItem("cityWeatherSearch")) || [];
-var searchedCities = document.querySelector("#searchedCities");
+const APIKey = "77d9b213504a58408f3d89d57b484a0d";
+let city;
+const cityNameSearch = document.querySelector("#cityName");
+const searchButton = document.querySelector("#citySearch");
+const weatherBlock = document.querySelector("#weatherBlock");
+const fiveDayBlock = document.querySelector("#fiveDayBlock");
+let searchHistory = JSON.parse(localStorage.getItem("cityWeatherSearch")) || [];
+const searchedCities = document.querySelector("#searchedCities");
 
 // Displays the search history
 function showHistory() {
-    for (var i = 0; i < searchHistory.length; i++) {
+    for (let i = 0; i < searchHistory.length; i++) {
         historyBtn = document.createElement('button');
         $(historyBtn).addClass('btn btn-secondary form-control history');
         searchHistory = JSON.parse(localStorage.getItem("cityWeatherSearch"));
@@ -31,7 +28,8 @@ function addHistory(city) {
 
 // Fetches weather and uvi data from openweathermap API
 function getWeather(city) {
-    var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=' + APIKey;
+    const currentDate = moment().format('M/D/YYYY');
+    const requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=' + APIKey;
     fetch(requestUrl)
         .then(function (response) {
             if (!response.ok) {
@@ -42,14 +40,14 @@ function getWeather(city) {
             }
         })
         .then(function (data) {
-            var cityName = document.createElement('h3');
-            var temp = document.createElement('p');
-            var wind = document.createElement('p');
-            var humidity = document.createElement('p');
-            var uvIndex = document.createElement('p');
-            var uvNumber = document.createElement('span');
-            var todayIcon = (data.weather[0].icon);
-            var todayIconImage = '<img src="https://openweathermap.org/img/w/' + todayIcon + '.png" alt="" />';
+            const cityName = document.createElement('h3');
+            const temp = document.createElement('p');
+            const wind = document.createElement('p');
+            const humidity = document.createElement('p');
+            const uvIndex = document.createElement('p');
+            const uvNumber = document.createElement('span');
+            const todayIcon = (data.weather[0].icon);
+            const todayIconImage = '<img src="https://openweathermap.org/img/w/' + todayIcon + '.png" alt="" />';
             cityName.innerHTML = data.name + ' (' + currentDate + ')' + todayIconImage;
             temp.innerHTML = 'Temp: ' + (data.main.temp) + '&#176F';
             wind.innerHTML = 'Wind: ' + (data.wind.speed) + ' MPH';
@@ -58,15 +56,15 @@ function getWeather(city) {
             weatherBlock.append(temp);
             weatherBlock.append(wind);
             weatherBlock.append(humidity);
-            var lat = (data.coord.lat);
-            var lon = (data.coord.lon);
-            var requestUvi = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly&units=imperial&appid=' + APIKey;
+            const lat = (data.coord.lat);
+            const lon = (data.coord.lon);
+            const requestUvi = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=minutely,hourly&units=imperial&appid=' + APIKey;
             fetch(requestUvi)
                 .then(function (response) {
                     return response.json();
                 })
                 .then(function (data) {
-                    var uviValue = data.current.uvi;
+                    const uviValue = data.current.uvi;
                     if (uviValue <= 2.99) {
                         $(uvNumber).addClass('uvIndex green');
                     } else if (uviValue >= 3 && uviValue <= 5.99) {
@@ -82,17 +80,17 @@ function getWeather(city) {
                     uvIndex.textContent = 'UV Index: ';
                     uvIndex.append(uvNumber);
                     weatherBlock.append(uvIndex);
-                    for (var i = 1; i < 6; i++) {
-                        var weatherCard = document.createElement('div');
-                        var weatherCardContent = document.createElement('div');
-                        var date5 = document.createElement('h5');
-                        var icon5 = document.createElement('p');
-                        var temp5 = document.createElement('p');
-                        var wind5 = document.createElement('p');
-                        var humidity5 = document.createElement('p');
-                        var fiveDayIcon = (data.daily[i].weather[0].icon);
-                        var fiveDayIcons = '<img src="https://openweathermap.org/img/w/' + fiveDayIcon + '.png" alt="" />';
-                        var unix_timestamp = (data.daily[i].dt)
+                    for (let i = 1; i < 6; i++) {
+                        const weatherCard = document.createElement('div');
+                        const weatherCardContent = document.createElement('div');
+                        const date5 = document.createElement('h5');
+                        const icon5 = document.createElement('p');
+                        const temp5 = document.createElement('p');
+                        const wind5 = document.createElement('p');
+                        const humidity5 = document.createElement('p');
+                        const fiveDayIcon = (data.daily[i].weather[0].icon);
+                        const fiveDayIcons = '<img src="https://openweathermap.org/img/w/' + fiveDayIcon + '.png" alt="" />';
+                        const unix_timestamp = (data.daily[i].dt)
                         date5.innerHTML = moment.unix(unix_timestamp).format('M/D/YYYY');
                         icon5.innerHTML = fiveDayIcons;
                         temp5.innerHTML = 'Temp: ' + (data.daily[i].temp.max) + '&#176F';
